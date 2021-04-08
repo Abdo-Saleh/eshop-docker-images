@@ -1,0 +1,41 @@
+.spacer {
+    flex: 1 1 auto;
+}
+.menu-spacer {
+    flex: 1 1 auto;
+  }
+  
+
+.account {
+    padding-left: 1rem;
+    padding-right: 1rem;
+    width: 5rem;
+}
+
+.cartShopping {
+    padding-right: 2rem;
+    width: 2rem;
+}
+
+.smallSizeButtons {
+    width: 8rem;
+}
+
+.navigation-bar {
+    margin-bottom: 4rem;
+    padding-left: 4rem;
+    padding-right: 4rem;
+    padding-top: 3rem;
+}
+
+.ejunkShopLogo {
+    height: 4rem;
+    margin-top: 4rem;
+}
+.mat-button.mat-accent, .mat-icon-button.mat-accent, .mat-stroked-button.mat-accent {
+    color: white !important;
+}
+.mat-drawer{
+    width: 25%;   
+}
+

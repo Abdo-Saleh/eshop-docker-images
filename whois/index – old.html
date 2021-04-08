@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<title>Whois lookup</title>
+		<link href="https://fonts.googleapis.com/css2?family=Coming+Soon&display=swap" rel="stylesheet">
+		<link rel="stylesheet" type="text/css" href="public/createdCSS/layout.css" />
+		<link rel="stylesheet" type="text/css" href="public/createdCSS/buttons.css" />
+		<link rel="stylesheet" type="text/css" href="public/createdCSS/texts.css" />		
+		<link rel="stylesheet" type="text/css" href="public/css/bootstrap.min.css" />
+		<link rel="stylesheet" media="screen" href="public/css/particleStyle.css">
+	</head>
+	<body id="particles-js">
+		<header>
+			<img class="whoisLogo" src="public/img/whois.svg" alt="Whois logo"/>
+			<nav  class="whoisNavBar navbar-light navbar-expand-xl">
+				<span ><a class="navbar-brand" href="#"></a></span> 
+				<button class="navbar-toggler togglerRight" type="button" data-toggle="collapse" data-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarsExample04">
+					<ul class="navbar-nav mr-auto">
+						<li class="nav-item active">
+							<a class="nexteriaMenu nexteriaMenuActive nav-link" href="#">Search<span class="sr-only">(current)</span></a>
+						<li class="nav-item">
+							<a class="nexteriaMenu nexteriaMenuPassive nav-link" href="#">Terms</a>
+						</li>
+						<li class="nav-item">
+							<a class="nexteriaMenu nexteriaMenuPassive nav-link" href="#">Blog</a>
+						</li>
+						<li class="nav-item">
+							<a class="nexteriaMenu nexteriaMenuPassive nav-link" href="#">Privacy</a>
+						</li>
+						<li class="nav-item">
+							<a class="nexteriaMenu nexteriaMenuPassive nav-link" href="#">Contact</a>
+						</li>
+					</ul>
+				</div>
+			</nav>
+		</header>
+		<main>
+			<section class="search">
+				<form action="/search" method="post">
+					<div>
+						<h1 class="mainHeader">Whois Lookup</h1>
+						<div class="wholeSearch">
+							<input class="searchField" type="text" name="domain" placeholder="Domain name (example: stuba.sk)" /><br/>
+							<input class="searchButton" type="submit" value="Search"/>
+						</div>
+					</div>
+				</form>
+			</section>
+		</main>
+		
+		<footer>
+			<section class="infobox">
+				<h3 class="thirdHeading">We provide information about domain names and other associated information!</h3>
+				<p class="tryText" >Try to find what you like ...</p>		
+			</section>
+			<p class="footerText" >Designed and created by Team 19 CYRAN &copy;</p> 
+		</footer>
+	
+
+		<!-- scripts -->
+		<script src="public/js/particles/particles.min.js"></script>
+		<script src="public/js/particles/app.js"></script>
+
+		<!-- stats.js -->
+		<script src="public/js/particles/lib/stats.js"></script>
+		
+		<script>
+			var count_particles, stats, update;
+			stats = new Stats;
+			stats.setMode(0);
+			update = function() {
+				stats.begin();
+				stats.end();
+				requestAnimationFrame(update);
+			};
+			requestAnimationFrame(update);
+			document.getElementsByTagName('canvas')[0].setAttribute('style',"width: 100%; height: 100vh");
+		</script>
+		<script src="public/js/popper.min.js"></script>
+		<script src="public/js/jquery.min.js"></script>
+		<script src="public/js/bootstrap.min.js"></script>
+		<script src="public/js/bootstrap.bundle.js"></script>
+		<script>
+			window.addEventListener("resize", function() { document.getElementsByTagName('canvas')[0].setAttribute('style',"width: 100%; height: 100vh"); });
+		</script>
+	</body>
+	
+</html>

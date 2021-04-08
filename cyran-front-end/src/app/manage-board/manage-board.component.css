@@ -1,0 +1,204 @@
+table {
+    width: 100%;
+}
+
+.user-table {
+    font-size: 15px;
+    width: calc(56rem + 75px);
+}
+
+.mat-column-id {
+    width: 75px;
+}
+
+.mat-column-username {
+    width: 12rem;
+}
+
+.mat-column-email {
+    width: 12rem;
+}
+
+.mat-column-change-username {
+    width: 16rem;
+}
+
+.mat-column-change-email {
+    width: 16rem;
+}
+
+.input-change-style {
+    width: 5rem;
+    padding-right: 2rem;
+}
+
+.center-cell {
+    display: flex;
+    justify-self: center;
+}
+
+.make-relative {
+    position: relative;
+}
+
+.move-under-input {
+    position: absolute;
+    left: 6rem;
+    bottom: 0.75rem;
+}
+
+.user-search-choice {
+    margin: 2rem;
+}
+
+.user-search-choice .mat-form-field + .mat-form-field {
+    margin-left: 8px;
+}
+
+.user-info-block {
+    display: grid;
+    justify-content: center;
+}
+
+.user-info-find {
+    display: grid;
+    grid-template-areas: "searchImage findContent";
+    grid-gap: 2rem;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+}
+
+.center-insert-product-content {
+    display: grid;
+    grid-template-areas: "title title" "amount imageInsert" "price imageInsert" "description description" "mainButton mainButton";
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 2rem;
+    width: calc(56rem + 75px);
+    
+   
+    align-self: center;
+    align-items: center;
+    margin: 0 auto;
+}
+
+.title-product {
+    grid-area: title;
+    margin-top: 3rem;
+    margin-bottom: 0.5rem;
+    justify-self: center;
+}
+
+.amount-product {
+    grid-area: amount;
+    justify-self: right;
+}
+
+.image-insert-product {
+    grid-area: imageInsert;
+    width: 200px;
+    margin: 1rem;
+    margin-top: 2rem;
+    justify-self: left;
+    align-self: center;
+}
+
+.price-product {
+    grid-area: price;
+    justify-self: right;
+}
+
+.description-product {
+    grid-area: description;
+    justify-self: center;
+}
+
+.find-content {
+    grid-area: findContent;
+}
+
+.search-div-img {
+    grid-area: searchImage;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+.search-image {
+    width: 200px;
+}
+
+.paggination {
+    margin-top: 2rem;
+    margin-bottom: 3rem;
+}
+
+.center-insert-product-content .mat-form-field + .mat-form-field {
+    margin-left: 8px;
+}
+
+.example-right-align {
+    text-align: right;
+}
+
+input.example-right-align::-webkit-outer-spin-button,
+input.example-right-align::-webkit-inner-spin-button {
+    display: none;
+}
+
+input.example-right-align {
+    -moz-appearance: textfield;
+}
+
+.insert-product-heading1 {
+    margin-bottom: 2rem;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.insert-product-heading2 {
+    margin-top: 0.5rem;
+    margin-bottom: 0.3rem;
+    margin-left: 2rem;
+    font-size: 0.7rem;
+    font-weight: bold;
+}
+
+.input-content {
+    padding-left: 3rem;
+}
+
+.input-product-description-style {
+    width: 25rem;
+    font-size: 0.7rem;
+}
+
+.input-product-price-style {
+    width: 10rem;
+    font-size: 0.7rem;
+}
+
+.input-product-title-style {
+    width: 25rem;
+    font-size: 1rem;
+}
+
+.main-button {
+    grid-area: mainButton;
+    width: 18rem;
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 1.5rem;
+    margin-top: 2rem;
+    margin-bottom: 3rem;
+    justify-self: center;
+}
+
+.title {
+    display: block;
+    font-size: 3rem;
+    font-weight: bold;
+    color: #F51771;
+    padding-top: 3rem;
+    padding-left: 1.5rem;
+    padding-bottom: 1rem;
+}

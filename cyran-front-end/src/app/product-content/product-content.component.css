@@ -1,0 +1,6 @@
+.arrange {
+    flex-flow: column wrap;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+}

@@ -1,0 +1,27 @@
+version: "3.6"
+services:
+  db:
+    image: postgres:latest
+    environment:
+      POSTGRES_PASSWORD: perdekj
+      POSTGRES_USER: postgres
+      POSTGRES_DB: postgres
+    volumes:
+      - ./prepare_data/new.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "5432:5432"
+  whoisapp:
+    links:
+      - db
+    image: jperdek/whoisapp
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      DB_PASS: perdekj
+      DB_USER: postgres
+      DB_HOST: host.docker.internal
+    depends_on:
+      - db
+    ports:
+      - "8080:8080"

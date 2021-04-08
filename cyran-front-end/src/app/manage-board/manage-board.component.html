@@ -1,0 +1,139 @@
+<mat-card >
+    <mat-card-header class="header-card">
+        <mat-card-title class="mat-headline title">Eshop management</mat-card-title>
+    </mat-card-header>
+    <mat-tab-group mat-align-tabs="center">
+        <mat-tab label="Customers" fxLayout="row" fxFill >
+            <div class="user-info-find">
+                <div class="search-div-img">
+                     <img src="/assets/images/table-search.svg" class="search-image" alt=""/>
+                </div>
+                <div class="user-search-choice find-content">
+                    <mat-form-field hintLabel="Max 100 characters" appearance="fill">
+                        <mat-label>Enter some input</mat-label>
+                        <input matInput #input maxlength="100" placeholder="jan" name="phrase" [(ngModel)]="phrase">
+                        <mat-hint align="end" >{{input.value?.length || 0}}/100</mat-hint>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="fill" >
+                        <mat-label>Search according</mat-label>
+                        <mat-select  [(ngModel)]="option">
+                            <mat-option name="option" value="name">Name</mat-option>
+                            <mat-option name="option" value="email">Email</mat-option>
+                        </mat-select>
+                        <mat-hint align="end">Choose which parameter find</mat-hint>
+                    </mat-form-field>
+
+                    <button color="primary" mat-raised-button class="icon-button" class="main-button" (click)="search(phrase, option);">
+                    <mat-icon>search</mat-icon>
+                    <span>Search</span>
+                </button>
+                </div>
+            </div>
+            <div class="user-info-block">
+                <table mat-table [dataSource]="elements" class="mat-elevation-z8 user-table">
+                    <!-- Position Column -->
+                    <ng-container matColumnDef="id" >
+                        <th mat-header-cell *matHeaderCellDef> ID </th>
+                        <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+                    </ng-container>
+
+                    <!-- Name Column -->
+                    <ng-container matColumnDef="name" >
+                        <th mat-header-cell *matHeaderCellDef> Username </th>
+                        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+                    </ng-container>
+
+                    <!-- Weight Column -->
+                    <ng-container matColumnDef="email">
+                        <th mat-header-cell *matHeaderCellDef> Email </th>
+                        <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+                    </ng-container>
+
+                    <!-- Symbol Column -->
+                    <ng-container matColumnDef="change-username">
+                        <th mat-header-cell *matHeaderCellDef> Change username </th>
+                        <td mat-cell *matCellDef="let element" class="make-relative"> 
+                            <div class="center-cell">
+                                <input id="name-{{element.id}}" type="text" placeholder="Jan" class="input-change-style"  />
+                            </div>
+                            <button mat-raised-button (click)="changeName(element.name, element.id)" color="primary" class="move-under-input">Change</button>
+                        </td>
+                    </ng-container>
+
+                    <!-- Symbol Column -->
+                    <ng-container matColumnDef="change-email" >
+                        <th mat-header-cell *matHeaderCellDef> Change email </th>
+                        <td mat-cell *matCellDef="let element" class="make-relative"> 
+                            <div class="center-cell ">
+                                <input id="email-{{element.id}}" type="text" placeholder="email@em.com" class="input-change-style"/>
+                            </div>
+                            <button mat-raised-button (click)="changeEmail(element.email,  element.id)" color="primary" class="move-under-input">Change</button>
+                        </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns; let i = index"></tr>
+                </table>
+                <mat-paginator [length]="100" class="paggination"
+                    color="primary"
+                    [pageSize]="10"
+                    [pageSizeOptions]="[5, 10, 25, 100]">
+                </mat-paginator>
+            </div>
+        </mat-tab>
+        <mat-tab label="Products" fxLayout="row" fxFill>
+            <mat-card-title class="mat-headline title">Insert product</mat-card-title>
+            <form [formGroup]="form" (ngSubmit)="submit()">
+                <div class="center-insert-product-content">
+                    <img src="/assets/images/table-insert.svg" class="image-insert-product" alt="" />
+                    <div class="title-product">
+                        <div class="mat-title insert-product-heading1" color="primary">Title</div>
+                        <div class="input-content">
+                            <mat-form-field appearance="fill" class="input-product-title-style">
+                                <mat-label>Title</mat-label>
+                                <input matInput class="input-product-style" name="name" formControlName="name" [(ngModel)]="name">
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="amount-product">
+                        <div class="mat-subheading-2 insert-product-heading2">Amount</div>
+                        <div class="input-content">
+                            <mat-form-field appearance="fill" class="input-product-price-style">
+                                    <mat-label>Amount</mat-label>
+                                    <input matInput type="number" class="example-right-align input-product-style" name="quantity" formControlName="quantity" [(ngModel)]="quantity">
+                                    <span matPrefix>Ks&nbsp;</span>
+                                    <span matSuffix>.00</span>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="price-product">
+                        <div class="mat-subheading-2 insert-product-heading2">Price</div>
+                        <div class="input-content">
+                            <mat-form-field appearance="fill" class="input-product-price-style">
+                                <mat-label>Price</mat-label>
+                                <input matInput type="number" class="example-right-align" name="price" formControlName="price" [(ngModel)]="price">
+                                <span matPrefix>&euro;&nbsp;</span>
+                                <span matSuffix>.00</span>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="description-product">
+                        <div class="mat-subheading-2 insert-product-heading2">Description</div>
+                        <div class="input-content">
+                            <mat-form-field appearance="fill" class="input-product-description-style">
+                                <mat-label>Textarea</mat-label>
+                                <textarea matInput name="description" formControlName="description" [(ngModel)]="description"></textarea>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <button color="primary" type="submit" mat-raised-button class="icon-button" class="main-button" >
+                        <mat-icon>keyboard_arrow_right</mat-icon>
+                        <span>Insert product</span>
+                    </button>
+                </div>
+          </form>
+        </mat-tab>
+    </mat-tab-group>
+</mat-card>
+

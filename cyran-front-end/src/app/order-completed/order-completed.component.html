@@ -1,0 +1,29 @@
+<mat-card >
+    <mat-card-header class="header-card">
+        <mat-card-title class="mat-headline title">Order completed</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+     <div class="completed-info">
+        <img class="card-image" src="/assets/images/shopping-bag-done.svg"/>
+     </div >
+     <mat-list role="list" class="download-list" *ngFor="let product of products; let i = index">
+        <mat-divider ></mat-divider>
+            <mat-list-item role="listitem">
+                <div mat-line>{{ product.name }}</div>
+                <a href="{{ product.url }}" download>
+                    <button mat-icon-button class="icon-complete-button">
+                        <mat-icon mat-list-icon>download</mat-icon>
+                        <span>Download</span>
+                    </button>
+                </a>
+            </mat-list-item>
+            <mat-divider ></mat-divider>
+        </mat-list>
+    </mat-card-content>
+    <div fxShow="true" class="button-style button-style-center">
+        <button color="primary" mat-raised-button class="icon-button" class="main-button" [routerLink]="'/'">
+            <mat-icon>keyboard_arrow_right</mat-icon>
+            <span>Return back</span>
+        </button>
+    </div>
+</mat-card >

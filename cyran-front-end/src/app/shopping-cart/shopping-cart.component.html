@@ -1,0 +1,90 @@
+<mat-card class="cart-card">
+    <mat-card-header>
+        <mat-card-title class="mat-headline title">Shopping cart</mat-card-title>
+    </mat-card-header>
+    <mat-card-content >
+        <mat-list fxShow="true" fxHide.lt-md="true">
+            <div *ngFor="let product of products; let i = index">
+                <mat-list-item class="comp-{{i}}">
+                    <mat-icon mat-list-icon>east</mat-icon>
+                    <div mat-line>{{product.title}}</div>
+                    <button mat-icon-button class="icon-cart-button" type="button" (click)='increase("counter-"+i.toString(), product.title);'>
+                        <mat-icon mat-list-icon>add_circle</mat-icon>
+                        <span>Add</span>
+                    </button>
+                    <button mat-icon-button class="icon-cart-button" type="button" (click)='decrease("counter-"+i.toString(), product.title);'>
+                        <mat-icon>remove_circle</mat-icon>
+                        <span>Remove</span>
+                    </button>
+                    <mat-form-field>
+                        <input class="item-counter counter-{{i}}" matInput maxlength="3" value="{{product.quantity}}" disabled>
+                    </mat-form-field>
+                    <button mat-icon-button class="icon-cart-button" type="button" (click)='deleteComponent("comp-"+i.toString(), product.title); updateFinalPrice();'>
+                        <mat-icon mat-list-icon>delete</mat-icon>
+                        <span>Delete</span>
+                    </button>
+                    <input type="hidden" class="price-one-{{i}}" value="{{product.price}}"/>
+                    <label class="price-prod-{{i}} price-label">{{countPrice(product)}} &euro;</label>
+                </mat-list-item>
+                <mat-divider></mat-divider>
+            </div>
+            <mat-divider></mat-divider>
+            <mat-list-item>
+                <mat-icon mat-list-icon>checkout</mat-icon>
+                <div mat-line >Checkout:</div>
+                
+                <label class="price-label whole-price">13,50 &euro;</label>
+            </mat-list-item>
+        </mat-list>
+        <mat-list fxShow="false" fxShow.lt-md="true" fxHide.lt-lg="true">
+            <div *ngFor="let product of products; let i = index">
+                <mat-list-item class="small-mat-list comp-{{i}}">
+                    <mat-icon mat-list-icon>east</mat-icon>
+                    <div mat-line  class="cart-product-heading-small">{{product.title}}</div>
+                    <div mat-line class="cart-product-options">
+                        <button mat-icon-button class="icon-cart-button" type="button" (click)='increase("counter-"+ i.toString(), product.title);'>
+                            <mat-icon mat-list-icon>add_circle</mat-icon>
+                            <span fxHide.lt-vs="true">Add</span>
+                        </button>
+                        <button mat-icon-button class="icon-cart-button" type="button" (click)='decrease("counter-"+ i.toString(), product.title);'>
+                            <mat-icon>remove_circle</mat-icon>
+                            <span fxHide.lt-vs="true">Remove</span>
+                        </button>
+                        <mat-form-field>
+                            <input class="item-counter counter-{{i}}" matInput maxlength="3"  value="{{product.quantity}}" disabled>
+                        </mat-form-field>
+                    </div>
+                    <div mat-line>
+                        <button mat-icon-button class="icon-cart-button" type="button" (click)='deleteComponent("comp-"+i.toString(), product.title);updateFinalPrice();'>
+                            <mat-icon mat-list-icon>delete</mat-icon>
+                            <span fxHide.lt-vs="true">Delete</span>
+                        </button>
+                    </div>
+                    <input type="hidden" class="price-one-{{i}}" value="{{product.price}}"/>
+                    <label class="price-prod-{{i}} price-label">{{countPrice(product)}} &euro;</label>
+                </mat-list-item >
+                <mat-divider></mat-divider>
+            </div>
+            <mat-divider></mat-divider>
+            <mat-list-item>
+                <mat-icon mat-list-icon>east</mat-icon>
+                <div mat-line>Checkout:</div>
+                
+                <label class="price-label whole-price">13,50 &euro;</label>
+            </mat-list-item>
+        </mat-list>
+    </mat-card-content>
+  <mat-card-actions class="footer-cart" fxShow="true" fxHide.lt-md="true">
+    <button color="primary" mat-raised-button class="icon-button" class="main-button" [routerLink]="'/delivery'">
+        <mat-icon>keyboard_arrow_right</mat-icon>
+        <span>Choose shippment</span>
+    </button>
+ </mat-card-actions>
+  <mat-card-actions fxShow="false" fxShow.lt-md="true" fxHide.lt-lg="true" class="footer-cart footer-cart-center" [routerLink]="'/delivery'">
+    <button color="primary" mat-raised-button class="icon-button" class="main-button">
+        <mat-icon>keyboard_arrow_right</mat-icon>
+        <span>Choose shippment</span>
+    </button>
+ </mat-card-actions>
+</mat-card>
+{{updateFinalPrice()}}

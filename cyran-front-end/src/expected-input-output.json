@@ -1,0 +1,43 @@
+    { //registeration form output
+        "username": "abdo",
+        "password": "12345",
+        "confirmPassword": "12345",
+        "address": "aaaa",
+        "email": "engabdosaleh1993@gmail.com"
+    }
+
+    {
+    //api expected output  done
+    "result": {
+        "username": "abdo",
+        "password": "12345",
+        "confirmPassword": "12345",
+        "address": "aaaa",
+        "email": "engabdosaleh1993@gmail.com"
+    },
+
+
+    //api expected output  error
+    "result": {
+        "message": "error"
+    }
+
+
+
+    { //login form output
+    "username": "abdo",
+    "password": "12345",
+    "confirmPassword": "12345",
+    "address": "aaaa",
+    "email": "engabdosaleh1993@gmail.com"
+}
+
+    {
+    //api expected output  
+    "result": {
+        "token": "asdfghjkl;.,mnbbv1213124234532",
+    },
+    //api expected output  error
+    "result": {
+        "message": "error"
+    }

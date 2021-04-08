@@ -1,0 +1,6 @@
+Error,Location,Details,Events,Users,Notes,Link
+default,http://localhost:4200/signin,User logged as assistent,2,1,,https://sentry.io/organizations/jakub-perdek/issues/2300743017/
+Error,http://localhost:4200/main.js,"Non-Error exception captured with keys: error, headers, message, name, ok…",2,1,,https://sentry.io/organizations/jakub-perdek/issues/2300848250/
+default,http://localhost:4200/completed,User bought free products,1,1,,https://sentry.io/organizations/jakub-perdek/issues/2300754646/
+default,http://localhost:4200/signin,User logged as admin,1,1,,https://sentry.io/organizations/jakub-perdek/issues/2300745018/
+default,http://localhost:4200/manage,User changed email admin@topsecret.com,2,1,,https://sentry.io/organizations/jakub-perdek/issues/2300710095/

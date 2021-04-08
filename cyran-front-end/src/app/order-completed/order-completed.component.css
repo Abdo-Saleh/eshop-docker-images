@@ -1,0 +1,54 @@
+.main-button {
+    width: 18rem;
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+.title {
+    display: block;
+    font-size: 3rem;
+    font-weight: bold;
+    color: #F51771;
+    padding-top: 3rem;
+    padding-left: 1.5rem;
+    padding-bottom: 1rem;
+}
+
+.completed-info {
+    display: flex;
+    justify-content: center;
+    padding-top: 2rem;
+    padding-bottom: 1rem;
+}
+
+
+@media(min-width: 700px){
+    .icon-complete-button {
+        margin-right: 10rem;
+    }
+}
+
+@media(max-width: 700px){
+    .icon-complete-button {
+        margin-right: 1rem;
+    }
+}
+
+.button-style {
+    display: flex;
+    flex-flow: row-reverse;
+    margin-right: 5rem;
+    margin-top: 4rem !important;
+    margin-bottom: 1.2rem !important;
+}
+
+.button-style-center {
+    justify-content: center;
+    margin-right: 0;
+}
+
+.icon-complete-button {
+    text-decoration: none;
+    color: white;
+}

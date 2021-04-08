@@ -1,0 +1,73 @@
+.card-image {
+    height: 300px;
+}
+
+.text-paying-methods {
+    padding: 2rem;
+}
+
+.footer-cart {
+    display: flex;
+    flex-flow: row-reverse;
+    margin-right: 5rem;
+    margin-top: 4rem !important;
+    margin-bottom: 1.2rem !important;
+}
+
+.footer-cart-center {
+    justify-content: center;
+    margin-right: 0;
+}
+
+.main-button {
+    width: 18rem;
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+.title {
+    display: block;
+    font-size: 3rem;
+    font-weight: bold;
+    color: #F51771;
+    padding-top: 3rem;
+    padding-left: 1.5rem;
+    padding-bottom: 1rem;
+}
+
+.slider-price {
+    width: 25vw;
+}
+
+.slider-center {
+    display: flex;
+    justify-content: center;
+}
+
+.price-to-pay {
+    font-size: 2rem;
+    font-weight: bold;
+    font-style: italic;
+    text-align: center;
+    margin-top: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+@media(min-width: 500px) and (max-width: 1200px) {
+    .price-to-pay {
+        padding-right: 8rem;
+    }
+}
+
+@media(min-width: 1200px){
+    .price-to-pay {
+        padding-right: 12rem;
+    }
+}
+
+@media(max-width: 500px)  {
+    .price-to-pay {
+        padding-right: 0rem;
+    }
+}

@@ -1,0 +1,84 @@
+.issue-place-select {
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+}
+
+.footer-delivery {
+    display: flex;
+    flex-flow: row-reverse;
+    margin-right: 5rem;
+    margin-top: 4rem !important;
+    margin-bottom: 1.2rem !important;
+}
+
+.footer-delivery-center {
+    justify-content: center;
+    margin-right: 0;
+}
+
+.main-button {
+    width: 18rem;
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+.title {
+    display: block;
+    font-size: 3rem;
+    font-weight: bold;
+    color: #F51771;
+    padding-top: 3rem;
+    padding-left: 1.5rem;
+    padding-bottom: 1rem;
+}
+
+.form-parent {
+    width: 50vw;
+    padding-left: 3.5rem;
+    align-content: center;
+}
+
+@media(min-width:  700px) {
+    .van-image {
+        display: flex;
+        justify-self: center;
+        justify-content: center;
+        width: 50vw;
+    }
+}
+
+@media(max-width:  700px) {
+    .van-image {
+        display: none;
+    }
+}
+
+.address-form {
+    min-width: 150px;
+    max-width: 500px;
+    width: 100%;
+}
+
+  
+.example-full-width {
+    width: 100%;
+}
+  
+td {
+    padding-right: 8px;
+}
+
+.card-image {
+    max-height: 390px;
+}
+
+.card-image-md {
+    max-height: 225px;
+}
+
+.card-image-sm {
+    max-height: 150px;
+}

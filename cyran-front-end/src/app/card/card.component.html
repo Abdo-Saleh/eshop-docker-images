@@ -1,0 +1,22 @@
+<div class="arrange" fxLayout="row inline">
+<mat-card class="product-card product-1" *ngFor="let title of titles">
+  <mat-card-header class="header-card">
+    <div mat-card-avatar class="example-header-image"></div>
+    <mat-card-title class="product_title">{{title['name']}}</mat-card-title>
+    <mat-card-subtitle class="product_price">{{title['price']}} &euro;</mat-card-subtitle>
+  </mat-card-header>
+  <img mat-card-image class="photo-content" src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
+  <mat-card-content >
+    <p>
+      {{title.description}}
+    </p>
+  </mat-card-content>
+  <mat-card-actions class="footer-card">
+        <button mat-icon-button class="icon-button" (click)="addToChart(title['name'], title['price']); addedToCartInfo();">
+            <mat-icon>add_shopping_cart</mat-icon>
+            <span>Add to cart</span>
+        </button>
+       
+  </mat-card-actions>
+</mat-card>
+</div>

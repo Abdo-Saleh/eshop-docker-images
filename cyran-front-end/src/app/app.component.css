@@ -1,0 +1,16 @@
+
+
+.new {
+    display: block;
+    min-height: calc(100vh - 14rem);
+}
+
+.cover {
+    display: block;
+    height: 12rem;
+}
+
+.whole-content {
+    height: 100%;
+}
+
