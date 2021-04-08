@@ -1,0 +1,85 @@
+version: '3'
+services:
+  db:
+    image: postgres:latest
+    environment:
+      POSTGRES_PASSWORD: perdekj
+      POSTGRES_USER: postgres
+      POSTGRES_DB: postgres
+    ports:
+      - "127.0.0.1:5432:5432"
+    volumes:
+      - ./prepare_data/new.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 15s
+      timeout: 10s
+      retries: 5
+    networks:
+      - buildernet
+  spring-cyran:
+    image: jperdek/cyran-back-end
+    networks:
+      - buildernet
+    links:
+      - db:db
+      - cyran-smtp:cyran-smtp
+    build:
+      context: ./cyran-back-end
+      dockerfile: Dockerfile
+    environment:
+      DB_PASS: perdekj
+      DB_PORT: 5432
+      DB_USER: postgres
+      DB_HOST: db
+      MAIL_HOST: cyran-smtp
+    ports:
+      - "8080:8080"
+    container_name: cyran-back-end
+    depends_on:
+      db:
+           condition: service_healthy
+      cyran-smtp:
+           condition: service_started
+  security-eshop:
+    image: jperdek/cyran-front-end
+    build:
+      context: ./cyran-front-end
+      dockerfile: Dockerfile
+    ports:
+      - "4200:4200"
+    container_name: cyran-front-end
+    depends_on:
+      - spring-cyran
+  cyran-smtp:
+    image: mailhog/mailhog
+    ports:
+      - "127.0.0.1:1025:1025"
+      - "8025:8025"
+    networks:
+      - buildernet
+  whoisapp:
+    links:
+      - db
+    image: jperdek/whoisapp
+    build:
+      context: ./whois
+      dockerfile: Dockerfile
+    environment:
+      DB_PASS: perdekj
+      DB_USER: postgres
+      DB_HOST: db
+    depends_on:
+      db:
+        condition: service_healthy
+    links:
+      - db
+    ports:
+      - "5001:5001"
+    networks:
+      - buildernet
+    restart: on-failure
+networks:
+  buildernet:
+    driver: "bridge"
+ 
