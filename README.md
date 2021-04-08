@@ -1,3 +1,6 @@
+## Brief story
+at someplace on this world, a young developer has developed a web application, he forgot that we're living in a world full of Evil Spirits, help him secure his app and report the weaknesses.
+
 # SecurityEshop
 
 This project was developed as part of team project. 
@@ -6,7 +9,6 @@ Frontend: localhost:4200
 Backend (cant be seen): localhost:8080  
 Whois: localhost:5001  
 Email server: localhost:8025  
- 
  
 ## BUILD
 - if you build app on your own and you cant build spring on your own, please download latest image on link below and replace old one in cyran-back-end/target
