@@ -1,13 +1,13 @@
 package com.cyran.tp.server;
 
+import java.nio.charset.StandardCharsets;
 import java.util.UUID;
 import java.util.concurrent.ExecutionException;
 
 import com.cyran.tp.server.api.BackendAPI;
 import com.cyran.tp.server.pojo.*;
-import com.cyran.tp.server.users.Users;
-import com.cyran.tp.server.users.UsersRepository;
 import com.fasterxml.jackson.databind.JsonNode;
+import com.google.common.hash.Hashing;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,9 +17,6 @@ public class UserController {
 
     @Autowired
     BackendAPI userService;
-
-    @Autowired
-    UsersRepository usersRepository;
 
     // curl -i -X GET http://localhost:8080/getUser?name=martin
     @CrossOrigin
@@ -111,16 +108,4 @@ public class UserController {
             return " possible csrf attack";
         }
     }
-
-    @CrossOrigin
-    @RequestMapping(value = "/getPriviledge", consumes = "application/json", produces = "application/json", method = RequestMethod.POST)
-    public String getPriviledge(@RequestBody Users user) {
-        for (Users us : usersRepository.findAll()) {
-            if (us.getName().equals(user.getName())) {
-                return us.getRole().getPriviledge();
-            }
-        }
-        return "user-not-known";
-    }
-
 }

@@ -1,10 +1,7 @@
 
 import { Component, OnInit } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router } from '@angular/router'
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { MatSliderChange } from '@angular/material/slider';
-import { SuccessMessageComponent } from '../info-snackbars/success-message/success-message.component';
+import { OrderManagementService} from '../services/order-management.service';
 
 interface Order {
   userName: string;
@@ -56,7 +53,7 @@ export class PayingMethodsComponent implements OnInit {
       "cvc": "000"
     }
   };
-  constructor(private _ourHttpClient: HttpClient, private _snackBar: MatSnackBar, private router: Router) { }
+  constructor(private _orderManagementService: OrderManagementService) { }
 
   ngOnInit(): void {
     var wholePrice = this.countWholePrice();
@@ -130,33 +127,7 @@ export class PayingMethodsComponent implements OnInit {
       this.order.creditCardInfo.cvc = "none";
     }
 
-    
-    return this._ourHttpClient.post("http://localhost:8080/create/order", this.order).subscribe(
-      (response) => {
-        if (response != null) {
-          if(response['order']['payed']){
-            localStorage.removeItem("shoppingCartProducts");
-            localStorage.setItem("boughtProducts", JSON.stringify(response['order']['products']));
-            SuccessMessageComponent.openSnackBarSuccess(this._snackBar, "Bought order with downloadable products prepared!");
-            this.router.navigateByUrl('/completed');
-          } else {
-            localStorage.removeItem("shoppingCartProducts");
-            SuccessMessageComponent.openSnackBarSuccess(this._snackBar, "Order info will be send to your email address!");
-            this.router.navigateByUrl('/');
-          }
-        } else {
-        }
-      },
-      (error) => {
-
-        if (error.error.text != "error") {
-          this.router.navigateByUrl('/completed');
-        } else {
-         this._snackBar.open('Not successfull', '', {
-            duration: 1000
-          });
-        }
-      })
+    this._orderManagementService.createOrder(this.order);
 
     // this.router.navigateByUrl('/completed');
   }

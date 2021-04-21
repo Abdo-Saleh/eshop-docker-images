@@ -2,7 +2,7 @@ package com.cyran.tp.server.database;
 
 import javax.annotation.PostConstruct;
 import java.io.File;
-import java.io.FileInputStream;
+import java.io.InputStream;
 
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.firebase.FirebaseApp;
@@ -26,8 +26,8 @@ public class FBInitialize {
     @PostConstruct
     public void initialize() {
         try {
-            FileInputStream is = new FileInputStream(
-                    new File(ClassLoader.getSystemClassLoader().getResource("access-key.json").getFile()));
+            InputStream is = 
+                    Thread.currentThread().getContextClassLoader().getResourceAsStream("access-key.json");
             FirebaseOptions options = new FirebaseOptions.Builder().setCredentials(GoogleCredentials.fromStream(is))
                     .setDatabaseUrl("https://cyran-backend.firebaseio.com").build();
 
