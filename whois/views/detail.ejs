@@ -31,7 +31,7 @@
 							<a class="nexteriaMenu nexteriaMenuPassive nav-link" href="/bcryptIntro">Bcrypt Tutorial</a>
 						</li>
 						<li class="nav-item">
-							<a class="nexteriaMenu nexteriaMenuPassive nav-link" href="#">Privacy</a>
+							<a class="nexteriaMenu nexteriaMenuPassive nav-link" href="/schema">Schema</a>
 						</li>
 						<li class="nav-item">
 							<a class="nexteriaMenu nexteriaMenuPassive nav-link" href="#">Contact</a>
@@ -170,11 +170,23 @@ Domain status 4:&#9;&#9;<%=data.domain_status_4%><% } %>
 						<th class="descriptionColumn titleColumnText">Description</th>
 						<th class="dangerColumn titleColumnText">Danger</th>
 					</tr>
-					<tr>
-						<td class="titleText">Not available</td>
-						<td class="subtitleTable">Not available</td>
-						<td class="subtitleTable">Not available</td>
-					</tr>
+					<% if(vuln == null || vuln.length == 0) { %>
+						<tr>
+							<td class="titleText">Not available</td>
+							<td class="subtitleTable">Not available</td>
+							<td class="subtitleTable">Not available</td>
+						</tr>
+					<% } else { %>
+						<% for(var i = 0; i< vuln.length; i++){ %>
+						<tr>
+							<td class="titleText"><%=vuln[i].vuln_type%></td>
+							<td class="subtitleTable"><%=vuln[i].description%></td>
+							<td class="subtitleTable"><%=vuln[i].vuln_danger%></td>
+						</tr>
+						<% } %>
+					<% } %>
+		
+					
 				</table>
 			</section>
 		</main>

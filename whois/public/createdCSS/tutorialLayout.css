@@ -59,6 +59,13 @@
 	justify-self: center;
 }
 
+.imageSchema {
+	width: 100%;
+	justify-self: center;
+	padding-left: 2.5rem;
+	padding-right: 2.5rem;
+}
+
 .flexCenter {
 	display: flex;
 	justify-content: center;
@@ -87,4 +94,24 @@ ul.pros {
 .mainMargin {
 	margin-top: 2rem;
 	margin-bottom: 4rem;
+}
+
+@media(max-width: 1200px) {
+	.vastSchema {
+		display: none;
+	}
+	
+	.smallSchema {
+		display: block;
+	}
+}
+
+@media(min-width: 1200px) {
+	.vastSchema {
+		display: block;
+	}
+	
+	.smallSchema {
+		display: none;
+	}
 }
