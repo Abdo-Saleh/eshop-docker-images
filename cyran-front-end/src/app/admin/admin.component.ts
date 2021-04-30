@@ -1,6 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { UserManagementService } from '../services/user-management.service';
 
+/**
+ * #### Description
+ * Mock for user with basic information as id, name and role
+ * 
+ * #### Version
+ * since: V1.0.0
+ * 
+ */
 export interface PeriodicElement {
   id: number;
   name: string;
@@ -14,6 +22,14 @@ const ELEMENT_DATA: PeriodicElement[] = [
   {id: 4, name: 'Kalium', role: "user"}
 ];
 
+/**
+ * #### Description
+ * Component for management roles in eshop - only admin should have access into it
+ * 
+ * #### Version
+ * since: V1.0.0
+ * 
+ */
 @Component({
   selector: 'app-admin',
   templateUrl: './admin.component.html',

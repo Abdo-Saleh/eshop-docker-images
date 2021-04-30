@@ -8,22 +8,59 @@ import { SuccessMessageComponent } from '../info-snackbars/success-message/succe
 import { AuthService } from './auth/auth-service';
 import { LoggingErrorsService } from './logging-errors.service';
 import { LoggingInfoService } from './logging-info.service';
-import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
+/**
+ * #### Description
+ * Service managing login of user
+ * 
+ * #### Version
+ * since: V1.0.0
+ */
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
 
+  /**
+   * #### Description
+   * Get base url. Method for portability. It loads variable with backend location url from environment.
+   *  
+   * #### Version
+   * since: V1.0.0
+   */
   private get baseUrl() {
     const baseUrl = environment.apiBaseUrl || 'http://localhost:8080';
     return `${baseUrl}/`;
   }
   
+  /**
+   * #### Description
+   * Constructor for login service, injects neccessary services for login management
+   * 
+   * #### Version
+   * since: V1.0.0
+   * 
+   * @param _ourHttpClient for working with HTTP requests
+   * @param router to navigate and redirrects
+   * @param _snackBar  for responsive feedback for users
+   * @param _auth service which provide authentification mechanism 
+   * @param _loggingInfoService logs informative messages - tracks users i certain actions
+   * @param _loggingErrorsService logs errors - tracks errors while using application
+   */
   constructor(private _ourHttpClient:HttpClient, private router: Router, private _snackBar: MatSnackBar,
     private _auth: AuthService, private _loggingInfoService :LoggingInfoService, private _loggingErrorsService: LoggingErrorsService) { }
 
+  /**
+   * #### Description
+   * Old method for login of user
+   * 
+   * #### Version
+   * since: V1.0.0
+   * 
+   * @param user object with information about user
+   * @returns user object subscription
+   */
   public getUserOld(user:any):any {
 
     return this._ourHttpClient.get(this.baseUrl + "getUser?name=" + user.name).subscribe(
@@ -60,6 +97,17 @@ export class LoginService {
       })
 }
 
+/**
+ * #### Description
+ * Method for login and verification of identity of user
+ * Redirrects to login page if it not succeed. Otherwise redirects to main page.
+ * 
+ * #### Version
+ * since: V1.0.0
+ * 
+ * @param user object with information about user
+ * @returns user user object subscription
+ */
 public getUser(user:any):any {
 
     return this._ourHttpClient.get(this.baseUrl + "login?name=" + user.name).subscribe(
@@ -82,7 +130,7 @@ public getUser(user:any):any {
         }) == true){
           this._auth.setLoggedIn(true, user.name);
           SuccessMessageComponent.openSnackBarSuccess(this._snackBar, "Successfully logged in!");
-          this._auth.setRole(true, response['priviledges']);
+          this._auth.setRole(response['priviledges']);
           this._loggingInfoService.user_logged_as_admin(response['priviledges']);
           this._loggingInfoService.user_logged_as_assistent(response['priviledges']);
 
@@ -99,7 +147,15 @@ public getUser(user:any):any {
       })
 }
 
-
+/**
+ * #### Description
+ * Method which allows to set priviledges for user.
+ *  
+ * #### Version
+ * since: V1.0.0
+ * 
+ * @param name name of priviledge 
+ */
 public setPriviledges(name:string): void {
   var dictionary = {}
   dictionary['name'] = name
@@ -116,6 +172,16 @@ public setPriviledges(name:string): void {
     });
 }
 
+/**
+ * #### Description
+ * Old not used method for registration of user
+ * 
+ * #### Version
+ * since: V1.0.0
+ * 
+ * @param user object with information about user
+ * @returns user registered user object subscription
+ */
 public setUserOld(user:any):any {
 
   const salt = bcrypt.genSaltSync(10);
@@ -141,6 +207,16 @@ public setUserOld(user:any):any {
     })
 }
 
+/**
+ * #### Description
+ * Method for registration of user
+ * 
+ * #### Version
+ * since: V1.0.0
+ * 
+ * @param user object with information about user
+ * @returns user registered user object subscription
+ */
 public setUser(user:any):any {
 
   const salt = bcrypt.genSaltSync(10);
@@ -168,7 +244,18 @@ public setUser(user:any):any {
     })
 }
 
-public searchAccordingName(email:string, purePassword: string, hashedPassword: string): void {
+/**
+ * #### Description
+ * Request of new password according user email. Password will be automatically chnaged to new version which is sent to email.
+ * 
+ * #### Version
+ * since: V1.0.0
+ * 
+ * @param email user email
+ * @param purePassword pure non hashed password of user. It needs to be displayed to user by email, that means it needs to be unhashed.
+ * @param hashedPassword hashed password using bcrypt, to update reference in db on backend.
+ */
+public requestPassword(email:string, purePassword: string, hashedPassword: string): void {
   var dictionary = {}
   dictionary['email'] = email;
   dictionary['purePassword'] = purePassword;
@@ -190,12 +277,6 @@ public searchAccordingName(email:string, purePassword: string, hashedPassword: s
       this._loggingErrorsService.captureError(error);
       return;
     });
-
-}
-
-public logError(error){
-  console.error("Occured error: "+error);
-    return Observable.throw(error || "Internal server error - undefined error!");
 }
 
 }

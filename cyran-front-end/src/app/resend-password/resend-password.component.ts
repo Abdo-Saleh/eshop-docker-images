@@ -29,6 +29,6 @@ export class ResendPasswordComponent implements OnInit {
     const salt = bcrypt.genSaltSync(10);
     const hashedPassword:string = bcrypt.hashSync(purePassword, salt);
 
-    this._loginService.searchAccordingName(form['email'], purePassword, hashedPassword)
+    this._loginService.requestPassword(form['email'], purePassword, hashedPassword)
   }
 }

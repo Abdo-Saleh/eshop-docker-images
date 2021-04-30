@@ -37,7 +37,6 @@ import { AdminComponent } from './admin/admin.component';
 import * as Raven from 'raven-js';
 import { SuccessMessageComponent } from './info-snackbars/success-message/success-message.component';
 import { ErrorMessageComponent } from './info-snackbars/error-message/error-message.component';
-import { forbiddenEmailValidator } from './shared/email-check.directive';
 
 Raven.config('https://712f212178c64dd8bb90e045eeb51f98@o517887.ingest.sentry.io/5694911').install();
 /*
