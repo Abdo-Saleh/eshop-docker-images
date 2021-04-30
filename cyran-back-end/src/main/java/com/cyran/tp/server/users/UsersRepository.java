@@ -40,11 +40,8 @@ public interface UsersRepository extends JpaRepository<Users, Integer>, JpaSpeci
      * @param string - name which identifies user
      * @return user obtained according name
      */
-    @Query(value = ("SELECT * FROM users WHERE name = ?1 AND name != 'admin'"), nativeQuery = true)
+    @Query(value = ("SELECT * FROM users WHERE name = ?1"), nativeQuery = true)
     Users getByName(String string);
-
-    @Query(value = ("SELECT priviledges_id FROM users WHERE name = :name"), nativeQuery = true)
-    Users getPriviledgeByName(@Param("name") String string);
 
     /**
      * Selects only one user according email except admin, otherwise it fails

@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<bean id = "dataSource"
-class = "org.springframework.jdbc.datasource.DriverManagerDataSource">
-   <property name = "driverClassName" value = "org.postgresql.Driver"/>
-   <property name = "url" value = "jdbc:postgres://cvajrvwa:aFJvlWEF_9Thz5xkkkzTp9J3KhDaoQVb@dumbo.db.elephantsql.com:5432/cvajrvwa"/>
-   <property name = "username" value = "cvajrvwa"/>
-   <property name = "password" value = "aFJvlWEF_9Thz5xkkkzTp9J3KhDaoQVb"/>
-</bean>

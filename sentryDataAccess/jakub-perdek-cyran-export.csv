@@ -1,6 +1,6 @@
 Error,Location,Details,Events,Users,Notes,Link
-default,http://localhost:4200/signin,User logged as assistent,2,1,,https://sentry.io/organizations/jakub-perdek/issues/2300743017/
-Error,http://localhost:4200/main.js,"Non-Error exception captured with keys: error, headers, message, name, ok…",2,1,,https://sentry.io/organizations/jakub-perdek/issues/2300848250/
-default,http://localhost:4200/completed,User bought free products,1,1,,https://sentry.io/organizations/jakub-perdek/issues/2300754646/
-default,http://localhost:4200/signin,User logged as admin,1,1,,https://sentry.io/organizations/jakub-perdek/issues/2300745018/
-default,http://localhost:4200/manage,User changed email admin@topsecret.com,2,1,,https://sentry.io/organizations/jakub-perdek/issues/2300710095/
+TypeError,http://localhost:4200/main.js,base_component.setElements is not a function,2,1,,https://sentry.io/organizations/jakub-perdek/issues/2354404842/
+default,http://localhost:4200/signin,User logged as assistent,21,7,,https://sentry.io/organizations/jakub-perdek/issues/2335714672/
+Error,https://localhost:4200/main.js,"Non-Error exception captured with keys: error, headers, message, name, ok…",33,7,,https://sentry.io/organizations/jakub-perdek/issues/2335667330/
+default,http://localhost:4200/signin,User logged as admin,3,3,,https://sentry.io/organizations/jakub-perdek/issues/2335730852/
+default,http://localhost:4200/manage,User changed email admin@topsecret.com,9,3,,https://sentry.io/organizations/jakub-perdek/issues/2335726262/

@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router'
-import { HttpClient } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { LoggingErrorsService } from '../services/logging-errors.service';
 import { SuccessMessageComponent } from '../info-snackbars/success-message/success-message.component';
+import { ProductManagementService } from '../services/product-management.service';
 
 @Component({
   selector: 'app-card',
@@ -12,7 +11,7 @@ import { SuccessMessageComponent } from '../info-snackbars/success-message/succe
 })
 export class CardComponent implements OnInit {
 
-  constructor(private _ourHttpClient:HttpClient, private _snackBar: MatSnackBar, private _loggingErrorsService: LoggingErrorsService) { }
+  constructor(private _productManagementService :ProductManagementService, private _snackBar: MatSnackBar, private _loggingErrorsService: LoggingErrorsService) { }
 
   ngOnInit(): void {
     if(false){
@@ -118,16 +117,7 @@ export class CardComponent implements OnInit {
       this.titles.push(dictionary);
     }
 
-    this._ourHttpClient.post("http://localhost:8080/create/product", dictionary, { responseType: 'text' as 'json' }).subscribe(
-      (response)=>{
-        return dictionary;
-      },
-      (error)=>{
-        console.error(error);
-        this._loggingErrorsService.captureError(error);
-        return dictionary;
-      });
-
+    this._productManagementService.insert(name, description, price, url, quantity);
   }
 
   public pushProduct(name:string, description:string, price:number, url:string, quantity:number):void {
@@ -165,16 +155,6 @@ export class CardComponent implements OnInit {
       }
 
       localStorage.setItem("shoppingCartProducts", JSON.stringify(shoppingCartProducts));
-  }
-
-  public getFirstSixProducts(): any {
-    return this._ourHttpClient.get("http://localhost:8080/products").subscribe(
-      (response)=>{
-      },
-      (error)=>{
-        this._loggingErrorsService.captureError(error);
-        console.error(error);
-      });
   }
 
   addedToCartInfo() {

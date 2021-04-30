@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 
 import javassist.NotFoundException;
@@ -64,6 +65,12 @@ public class UserControllerRDBS {
 
 	@Autowired
     private PriviledgesRepository priviledgesRepository;
+	
+	@Value("${hostIp}")
+	private String hostIp;
+	
+	@Value("${localDeploy}")
+	private boolean localDeploy;
 
     /**
      * Method for registering user
@@ -456,6 +463,11 @@ public class UserControllerRDBS {
                 user.setPassword(hashedPassword);
                 usersRepository.save(user);
 
+				//FOR GAME REASONS FOR LOCAL DEPLOYMENT THIS EMAIL WILL BE BLOCKED 
+				//- user cant see emails which are not his own
+				if(localDeploy && (email == "admin@topsecret.com" || email == "user@user.sk")){
+					return false;
+				}
                 // purePassword should be send to User email
                 sendmail(email, purePassword);
 
@@ -476,21 +488,38 @@ public class UserControllerRDBS {
      */
     private void sendmail(String email, String purePassword) throws AddressException, MessagingException, IOException {
         Properties props = new Properties();
-        props.put("mail.smtp.auth", "true");
-        props.put("mail.smtp.ssl.trust", "smtp.gmail.com");
-        props.put("mail.smtp.starttls.enable", "true");
+		props.put("mail.smtp.auth", "true");
+		props.put("mail.smtp.starttls.enable", "true");
         props.put("mail.transport.protocol", "smtp");
-        props.put("mail.smtp.host", "smtp.gmail.com");
-        props.put("mail.smtp.port", "587");
-
+		
+		if(localDeploy){
+			System.out.println("------------------------------------------------");
+			System.out.println(hostIp);
+			props.put("mail.smtp.ssl.trust", hostIp);
+			props.put("mail.smtp.host", hostIp);
+			props.put("mail.smtp.port", "1025"); //mailhog port
+		} else {
+			props.put("mail.smtp.ssl.trust", "smtp.gmail.com"); //not for local deploy
+			props.put("mail.smtp.host", "smtp.gmail.com"); //not for local deploy
+			props.put("mail.smtp.port", "587"); //not for local deploy
+		}
+		
+		
         Session session = Session.getInstance(props, new javax.mail.Authenticator() {
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication("tutorialeshop@gmail.com", "tutorial123456");
+				if(localDeploy){
+					return new PasswordAuthentication("tutorialeshop@tutorialeshop.com", "tutorial123456"); //non existing email
+				} else {
+					return new PasswordAuthentication("tutorialeshop@gmail.com", "tutorial123456"); //not for local deploy
+				}
             }
         });
         Message msg = new MimeMessage(session);
-        msg.setFrom(new InternetAddress("tutorialeshop@gmail.com", false));
-
+		if(localDeploy){
+			msg.setFrom(new InternetAddress("tutorialeshop@tutorialeshop.com", false)); //non existing email
+		} else {
+			msg.setFrom(new InternetAddress("tutorialeshop@gmail.com", false));  //not for local deploy	
+		}
         msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email));
         msg.setSubject("Passsword change in security eshop");
         msg.setContent("Passsword change in security eshop", "text/html");
