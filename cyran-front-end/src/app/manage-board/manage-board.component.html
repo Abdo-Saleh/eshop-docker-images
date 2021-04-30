@@ -55,7 +55,7 @@
                         <th mat-header-cell *matHeaderCellDef> Change username </th>
                         <td mat-cell *matCellDef="let element" class="make-relative"> 
                             <div class="center-cell">
-                                <input id="name-{{element.id}}" type="text" placeholder="Jan" class="input-change-style"  />
+                                <input id="name-{{element.id}}" type="text" placeholder="Jan" class="input-change-style" required minlength="2" />
                             </div>
                             <button mat-raised-button (click)="changeName(element.name, element.id)" color="primary" class="move-under-input">Change</button>
                         </td>
@@ -65,10 +65,13 @@
                     <ng-container matColumnDef="change-email" >
                         <th mat-header-cell *matHeaderCellDef> Change email </th>
                         <td mat-cell *matCellDef="let element" class="make-relative"> 
-                            <div class="center-cell ">
-                                <input id="email-{{element.id}}" type="text" placeholder="email@em.com" class="input-change-style"/>
-                            </div>
-                            <button mat-raised-button (click)="changeEmail(element.email,  element.id)" color="primary" class="move-under-input">Change</button>
+                            <form  (ngSubmit)="changeEmail(this, element.email,  element.id)">
+                                <div class="center-cell ">
+                                    <input id="email-{{element.id}}" name="emailField" type="text" placeholder="email@em.com" 
+                                    class="input-change-style" required minlength="2" appEmailCheck />
+                                </div>
+                                <button mat-raised-button type="submit" color="primary" class="move-under-input">Change</button>
+                            </form>
                         </td>
                     </ng-container>
 

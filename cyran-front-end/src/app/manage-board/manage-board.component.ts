@@ -24,6 +24,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
 export class ManageBoardComponent implements OnInit {
 
   form: FormGroup;
+  emailGroup: FormGroup;
   displayedColumns: string[] = ['id', 'name', 'email', 'change-username', 'change-email'];
   dataSource = ELEMENT_DATA;
   name:string;
@@ -54,6 +55,9 @@ export class ManageBoardComponent implements OnInit {
       price: new FormControl('', [Validators.required]),
       description: new FormControl('', [Validators.required]),
     });
+    this.emailGroup = new FormGroup({
+      emailControl: new FormControl('',[Validators.required])
+    });
   }
 
   test(){
@@ -65,7 +69,8 @@ export class ManageBoardComponent implements OnInit {
     this.elements = elements;
   }
 
-  public changeEmail(oldEmail:string, id:number): void {
+  public changeEmail(formul, oldEmail:string, id:number): void {
+    console.log(formul['email-' + id.toString()]);
     this._userManagementService.changeEmail(this, oldEmail, id);
   }
 
