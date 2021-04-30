@@ -1,23 +1,29 @@
 var pgp = require('pg-promise');
-
 var databaseConnection = require('../config/db_connection.js');
 var express = require("express")
 
 
 var connection = databaseConnection.getConnection();
 var bcryptTutorial = require("../public/createdJS/bcryptTutorial.js");
-
+async function waitHere() {
+  await sleep(5000);
+}
+		
 let retries = 5;
 while(retries) {
 	try{
 		connection.connect();
+		
 		break;
 	} catch(error){
+		waitHere();
+		console.log(retries);
 		console.log(error);
 		retries -= 1;
 		//await new Promise(response => setTimeout(response, 5000));
 	}
 }
+
 var router = express.Router();
 
 router.use(
@@ -40,10 +46,20 @@ router.get('/search', function (request, response) {
 	console.log(request.query.domain);
 	connection.one("SELECT * FROM whois WHERE domain_name LIKE '%"+ searchedString +"%' LIMIT 1")
 		.then(records => {
-			response.render('detail.ejs', { 'data': records });
+			console.log(records);
+			connection.any("SELECT * FROM vulnerabilities "+
+				"LEFT JOIN vuln_danger ON vuln_danger.id = vulnerabilities.vuln_danger_id "+
+				"LEFT JOIN vuln_types ON vuln_types.id = vulnerabilities.vuln_type_id "+
+				"WHERE vulnerabilities.reference_record_id = "+ records.id.toString()).then(vulnerabilities => {
+					console.log(vulnerabilities);
+					response.render('detail.ejs', { 'data': records, 'vuln': vulnerabilities});
+			}).catch(error => {
+				console.log("Second");
+				console.log(error);
+			});
 		})
 		.catch(error => {
-			
+			console.log(error);
 			if( error instanceof pgp.errors.QueryResultError  ){
 				response.redirect('/?error=' + encodeURIComponent('Not found!'));
 			} else {
@@ -55,6 +71,10 @@ router.get('/search', function (request, response) {
 
 router.get('/bcryptIntro', function (request, response) {
 	response.render('bcryptIntro.ejs', { salt: "15", inputText: "hello", outputText: "", guessedText: "", givenHash: "", resultComparation: "" });
+});
+
+router.get('/schema', function (request, response) {
+	response.render('whoisSchema.ejs');
 });
 
 router.post('/bcryptIntro', function (request, response) {
