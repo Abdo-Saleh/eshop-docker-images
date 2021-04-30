@@ -1,5 +1,4 @@
 
-import { StorageService } from './StorageService';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
@@ -91,7 +90,7 @@ Sentry.init({
     FormsModule,
     HttpClientModule,
   ],
-  providers: [AuthGuard, AuthService,StorageService, AdminGuard, ShopAssistentGuard],
+  providers: [AuthGuard, AuthService, AdminGuard, ShopAssistentGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -42,7 +42,7 @@ export class LoginService {
    * since: V1.0.0
    * 
    * @param _ourHttpClient for working with HTTP requests
-   * @param router to navigate and redirrects
+   * @param router to navigate and redirects
    * @param _snackBar  for responsive feedback for users
    * @param _auth service which provide authentification mechanism 
    * @param _loggingInfoService logs informative messages - tracks users i certain actions

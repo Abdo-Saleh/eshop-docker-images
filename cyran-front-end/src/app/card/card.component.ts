@@ -4,6 +4,14 @@ import { LoggingErrorsService } from '../services/logging-errors.service';
 import { SuccessMessageComponent } from '../info-snackbars/success-message/success-message.component';
 import { ProductManagementService } from '../services/product-management.service';
 
+/**
+ * #### Description
+ * Create cards with products for security eshop
+ * 
+ * #### Version
+ * since: V1.0.0
+ * 
+ */
 @Component({
   selector: 'app-card',
   templateUrl: './card.component.html',
@@ -11,8 +19,27 @@ import { ProductManagementService } from '../services/product-management.service
 })
 export class CardComponent implements OnInit {
 
+  /**
+   * #### Description
+   * Creates an instance of card component.
+   * 
+   * #### Version
+   * since: V1.0.0
+   * 
+   * @param _productManagementService service for managing products - loading and initialization
+   * @param _snackBar for responsive feedback for users
+   * @param _loggingErrorsService logs errors - tracks errors while using application
+   */
   constructor(private _productManagementService :ProductManagementService, private _snackBar: MatSnackBar, private _loggingErrorsService: LoggingErrorsService) { }
 
+  /**
+   * #### Description
+   * Initialize of loading first 6 products. Optionally products can be indserted on start of application.
+   * 
+   * #### Version
+   * since: V1.0.0
+   * 
+   */
   ngOnInit(): void {
     if(false){
       this.insertProducts();
@@ -23,9 +50,14 @@ export class CardComponent implements OnInit {
 
   titles = []
 
-  public fillProducts() : void {
-  }
-
+  /**
+   * #### Description
+   * Appends first 6 products to array of products - should be used only as mock
+   * 
+   * #### Version
+   * since: V1.0.0
+   * 
+   */
   public getFirst6ProductsLocally(): void{
     this.pushProduct("Originálna hádanka",
     'Pôvodná hádanka. Zistíte, kto kde býva, čo fajčí, pije a o aké zviera sa stará? A kto z nich chová rybičky?',
@@ -47,6 +79,14 @@ export class CardComponent implements OnInit {
     0.94, "http://localhost:4200/assets/einstein/009.jpg", 1000000);
   }
 
+  /**
+   * #### Description
+   * Inserts products to database. Additionally it loads 6 products for frontend.
+   * 
+   * #### Version
+   * since: V1.0.0
+   * 
+   */
   public insertProducts(): void{
     this.insert("Originálna hádanka",
     'Pôvodná hádanka. Zistíte, kto kde býva, čo fajčí, pije a o aké zviera sa stará? A kto z nich chová rybičky?',
@@ -105,6 +145,19 @@ export class CardComponent implements OnInit {
 
   }
 
+  /**
+   * #### Description
+   *  Delegates insertion on management service. Prepares data to be send and loads first 6 items for frontend.
+   * 
+   * #### Version
+   * since: V1.0.0
+   * 
+   * @param name product name
+   * @param description product description
+   * @param price product price
+   * @param url product url
+   * @param quantity priduct quantity
+   */
   public insert(name:string, description:string, price:number, url:string, quantity:number): void {
     var dictionary = {}
     dictionary['name'] = name;
@@ -120,6 +173,19 @@ export class CardComponent implements OnInit {
     this._productManagementService.insert(name, description, price, url, quantity);
   }
 
+  /**
+   * #### Description
+   *  Only appends product to titles array. Before it merges information about product to one dict - object.
+   * 
+   * #### Version
+   * since: V1.0.0
+   * 
+   * @param name product name
+   * @param description product description
+   * @param price product price
+   * @param url product url
+   * @param quantity product quantity
+   */
   public pushProduct(name:string, description:string, price:number, url:string, quantity:number):void {
       var dictionary = {}
       dictionary['name'] = name;
@@ -130,6 +196,16 @@ export class CardComponent implements OnInit {
       this.titles.push(dictionary);
   }
 
+  /**
+   * #### Description
+   * Functionality which enables add product to cart - all informations are stored in local storage for effective use
+   * 
+   * #### Version
+   * since: V1.0.0
+   * 
+   * @param itemTitle title name of product
+   * @param price price of product
+   */
   public addToChart(itemTitle: string, price: number): void{
       var shoppingCartProducts;
       var newItem = {}
@@ -157,6 +233,14 @@ export class CardComponent implements OnInit {
       localStorage.setItem("shoppingCartProducts", JSON.stringify(shoppingCartProducts));
   }
 
+  /**
+   * #### Description
+   * Displays information that product was successfully added to cart 
+   * 
+   * #### Version
+   * since: V1.0.0
+   * 
+   */
   addedToCartInfo() {
     SuccessMessageComponent.openSnackBarSuccess(this._snackBar, "Product added to cart!");
   }
