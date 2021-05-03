@@ -68,7 +68,7 @@
                             <form  (ngSubmit)="changeEmail(this, element.email,  element.id)">
                                 <div class="center-cell ">
                                     <input id="email-{{element.id}}" name="emailField" type="text" placeholder="email@em.com" 
-                                    class="input-change-style" required minlength="2" appEmailCheck />
+                                    class="input-change-style" required minlength="2" />
                                 </div>
                                 <button mat-raised-button type="submit" color="primary" class="move-under-input">Change</button>
                             </form>

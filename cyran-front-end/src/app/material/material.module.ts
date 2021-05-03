@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -40,9 +39,16 @@ const MaterialComponents = [
   MatPaginatorModule
 ]
 
+/**
+ * #### Description
+ * Imports and exports all used Angular material components
+ *  
+ * #### Version
+ * since: V1.0.0
+ * 
+ */
 @NgModule({
   imports: [MaterialComponents],
   exports: [MaterialComponents]
 })
-
 export class MaterialModule { }

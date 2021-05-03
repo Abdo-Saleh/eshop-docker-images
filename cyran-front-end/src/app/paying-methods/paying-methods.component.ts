@@ -3,14 +3,29 @@ import { Component, OnInit } from '@angular/core';
 import { MatSliderChange } from '@angular/material/slider';
 import { OrderManagementService} from '../services/order-management.service';
 
+/**
+ * #### Description
+ * Representation of order
+ * 
+ * #### Version
+ * since: V1.0.0
+ * 
+ */
 interface Order {
   userName: string;
   shipmentAddress: string;
   cartInfo: { products: [], finalPrice: number };
   creditCardInfo: { iban: number, valid: string, cvc: string }
-
 }
 
+/**
+ * #### Description
+ * Manages collecting information about paying methods and finalizes order
+ * 
+ * #### Version
+ * since: V1.0.0
+ * 
+ */
 @Component({
   selector: 'app-paying-methods',
   templateUrl: './paying-methods.component.html',
@@ -53,8 +68,26 @@ export class PayingMethodsComponent implements OnInit {
       "cvc": "000"
     }
   };
+
+  /**
+   * #### Description
+   * Creates an instance of paying methods component.
+   * 
+   * #### Version
+   * since: V1.0.0
+   * 
+   * @param _orderManagementService service for managing order creation
+   */
   constructor(private _orderManagementService: OrderManagementService) { }
 
+  /**
+   * #### Description
+   * Contains initialization of basic fees for creation of order
+   * 
+   * #### Version
+   * since: V1.0.0
+   * 
+   */
   ngOnInit(): void {
     var wholePrice = this.countWholePrice();
     this.minPriceBankTransfer = wholePrice;
@@ -65,6 +98,15 @@ export class PayingMethodsComponent implements OnInit {
     this.maxPriceCashOnDelivery = this.minPriceCashOnDelivery + 100;
   }
 
+  /**
+   * #### Description
+   * Counts whole price for order
+   * 
+   * #### Version
+   * since: V1.0.0
+   * 
+   * @returns whole price 
+   */
   countWholePrice(): number {
     var cartString = localStorage.getItem("shoppingCartProducts");
     var wholePrice: number = 0;
@@ -78,11 +120,32 @@ export class PayingMethodsComponent implements OnInit {
     return -1;
   }
 
-  renameKey ( obj, oldKey, newKey ) {
+  /**
+   * #### Description
+   * Renames key in dict and after it removes older one
+   * 
+   * #### Version
+   * since: V1.0.0
+   * 
+   * @param obj dictionary
+   * @param oldKey old key which will be removed after copy
+   * @param newKey new key which will hold value from old key
+   */
+  private renameKey ( obj, oldKey, newKey ) {
     obj[newKey] = obj[oldKey];
     delete obj[oldKey];
   }
 
+  /**
+   * #### Description
+   * Loads products from shopping cart - local storage
+   * Renames product title to product name
+   * 
+   * #### Version
+   * since: V1.0.0
+   * 
+   * @returns products resulting array of products from shopping cart
+   */
   getProducts():any {
     var cartString = localStorage.getItem("shoppingCartProducts");
     if (cartString !== null) {
@@ -97,6 +160,15 @@ export class PayingMethodsComponent implements OnInit {
     return [];
   }
 
+  /**
+   * #### Description
+   * Obtains delivery information from local storage
+   * 
+   * #### Version
+   * since: V1.0.0
+   * 
+   * @returns delivery information loaded delivery information if exists
+   */
   getDeliveryInformation(): any {
     var deliveryInfo = localStorage.getItem("deliveryInfo");
     if (deliveryInfo === null) {
@@ -106,10 +178,27 @@ export class PayingMethodsComponent implements OnInit {
     }
   }
 
+  /**
+   * #### Description
+   * Saves card information -- TODO
+   * 
+   * #### Version
+   * since: V1.0.0
+   * 
+   * @param cardInfo object with information about card
+   */
   saveCard(cardInfo: any): void {}
 
-
-  public saveOrder(cardInfo:any) {
+  /**
+   * #### Description
+   * Prepares all information about  order and delegates sending request to order service for its creation
+   * 
+   * #### Version
+   * since: V1.0.0
+   * 
+   * @param cardInfo object with information about card if exists
+   */
+  public saveOrder(cardInfo:any): void {
     var deliveryInfo = this.getDeliveryInformation();
 
     this.order.userName = deliveryInfo.name + deliveryInfo.surname;
@@ -132,18 +221,54 @@ export class PayingMethodsComponent implements OnInit {
     // this.router.navigateByUrl('/completed');
   }
 
-  public cardPayment(cardInfo: any) {
-    return this.saveOrder(cardInfo);
+  /**
+   * #### Description
+   * Manages payment method using card
+   * 
+   * #### Version
+   * since: V1.0.0
+   * 
+   * @param cardInfo object with information about card
+   * @returns  
+   */
+  public cardPayment(cardInfo: any): void {
+    this.saveOrder(cardInfo);
   }
 
+  /**
+   * #### Description
+   * Updates value of price after moving slider
+   *  
+   * #### Version
+   * since: V1.0.0
+   * 
+   * @param event mat slider event of changing slider
+   */
   onInputChange(event: MatSliderChange) {
     this.payment = event.value;
   }
+
+  /**
+   * #### Description
+   * Manages bank transfer payment method
+   * 
+   * #### Version
+   * since: V1.0.0
+   * 
+   */
   public bankTransferPayment(){
-    return this.saveOrder(null);
+    this.saveOrder(null);
   }
 
+  /**
+   * #### Description
+   * Manages cash on delivery payment method
+   * 
+   * #### Version
+   * since: V1.0.0
+   * 
+   */
   public cashOnDeliveryPayment(){
-    return this.saveOrder(null);
+    this.saveOrder(null);
   }
 }

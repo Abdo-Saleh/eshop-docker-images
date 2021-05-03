@@ -15,6 +15,7 @@ import { ManageBoardComponent } from './manage-board/manage-board.component';
 import { ResendPasswordComponent } from './resend-password/resend-password.component';
 import { AdminComponent } from './admin/admin.component';
 
+
 const routes: Routes = [
   {
     path: '',
