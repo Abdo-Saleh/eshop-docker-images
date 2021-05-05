@@ -5,6 +5,11 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -21,6 +26,7 @@ import org.springframework.http.MediaType;
 import javassist.NotFoundException;
 import java.util.List;
 import java.util.Iterator;
+import java.util.ArrayList;
 
 import org.json.simple.parser.JSONParser;
 import org.json.simple.JSONObject;
@@ -76,19 +82,26 @@ public class OrderControllerRDBS {
 	@RequestMapping(path = "/eorder/insert", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     @CrossOrigin
-    public String createOrder(HttpServletRequest request, @RequestBody String body, HttpServletResponse response) throws InterruptedException, ParseException {
+    public JsonNode createOrder(HttpServletRequest request, @RequestBody String body, HttpServletResponse response) throws InterruptedException, ParseException {
         
 		String productName;
 		JSONObject product;
 		BoughtProducts boughtProduct;
 		Products originalProduct;
 		Orders savedOrder;
+		Double finalPrice;
+		ObjectMapper mapper = new ObjectMapper();
+        ObjectNode objectNode = mapper.createObjectNode();
+		JsonNode result;
+		ArrayList<Products> product_list = new ArrayList<Products>();
+		
 		
 		JSONParser parser = new JSONParser();
         JSONObject obj = (JSONObject) parser.parse(body);
         String userName = (String) obj.get("userName");
         String shipmentAddress= (String) obj.get("shipmentAddress");
-        JSONArray products = (JSONArray) ((JSONObject) obj.get("cartInfo")).get("products");
+		JSONObject cartInfo = (JSONObject) obj.get("cartInfo");
+        JSONArray products = (JSONArray) cartInfo.get("products");
 		
 		JSONObject creditCard = (JSONObject) obj.get("creditCardInfo");
 		String iban = (String) creditCard.get("iban");
@@ -104,6 +117,7 @@ public class OrderControllerRDBS {
 			System.out.println("User is null!");
 		}
 		
+		finalPrice = (Double) cartInfo.get("finalPrice");
 		Orders newOrder = new Orders();
         newOrder.setShipmentAddress(shipmentAddress);
         newOrder.setUser(user);
@@ -123,12 +137,29 @@ public class OrderControllerRDBS {
 				boughtProduct.setOrder(savedOrder);
 				boughtProduct.setPrice((Double) product.get("price"));
 				boughtProduct.setQuantity((Long) product.get("quantity"));
+				product_list.add(originalProduct);
 				boughtProductsRepository.save(boughtProduct);
 			} else {
 				System.out.println("Non existent product!");
 			}
 		}
- 
-		return "Order is successfully created";
+		
+		if(finalPrice == 0){
+			objectNode.put("success", true);
+            objectNode.put("payed", true);
+            objectNode.put("toPay", 0);
+			ArrayNode prodArray = mapper.valueToTree(product_list);
+            objectNode.putArray("products").addAll(prodArray);
+            result = mapper.createObjectNode().set("order", objectNode);
+		} else {
+			objectNode.put("success", true);
+            objectNode.put("payed", false);
+            objectNode.put("toPay",  finalPrice);
+            objectNode.put("products", "");
+			result = mapper.createObjectNode().set("order", objectNode);
+		}
+		
+        return result;
+		//return "Order is successfully created";
     }
 }
