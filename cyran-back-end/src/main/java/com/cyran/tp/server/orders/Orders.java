@@ -17,7 +17,7 @@ import javax.persistence.GenerationType;
 import com.cyran.tp.server.users.Users;
 
 /**
- * Class for mapping user to DB table using Hibernate
+ * Class for mapping orders to DB table using Hibernate
  *
  * @author Jakub Perdek
  */
@@ -52,7 +52,7 @@ public class Orders {
     /**
      * Sets id of order
      *
-     * @param id of orderorder
+     * @param id of order
      */
     public void setId(Integer id) {
         this.id = id;
@@ -88,7 +88,7 @@ public class Orders {
     /**
      * Sets creator of order
      *
-     * @param email of mapped user
+     * @param user creator of order
      */
     public void setUser(Users user) {
         this.user = user;
@@ -97,7 +97,7 @@ public class Orders {
     /**
      * Gets credit card used to pay order
      *
-     * @return password in hashed form for mapped user
+     * @return credit card used to pay order
      */
     public CreditCard getCreditCard() {
         return creditCard;

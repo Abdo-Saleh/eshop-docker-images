@@ -131,5 +131,4 @@ public class Users {
     public void setRole(Priviledges role) {
         this.role = role;
     }
-
 }

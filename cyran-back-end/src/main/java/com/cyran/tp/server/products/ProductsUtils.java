@@ -33,7 +33,7 @@ public class ProductsUtils {
     }
 
     /**
-     * Creates ProductDTO instances from Product instances
+     * Creates ProductDTO instances from list of Product instances
      *
      * @param products - list of product instances
      * @return array of ProductsDTO instances created from Product instances
@@ -61,10 +61,10 @@ public class ProductsUtils {
     }
 
     /**
-     * Creates UserDTO instances from User instances
+     * Creates UserDTO instance from Product instance
      *
-     * @param users - user instance
-     * @return UsersDTO instance created from User instance
+     * @param product - product instance
+     * @return roductsDTO instance created from product (Products class) instance
      */
     public static ProductsDTO productToDtoMapping(Products product) {
         ProductsDTO udto = new ProductsDTO();
@@ -77,5 +77,4 @@ public class ProductsUtils {
         }
         return udto;
     }
-
 }

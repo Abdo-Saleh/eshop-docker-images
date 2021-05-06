@@ -36,9 +36,9 @@ public class ProductClassRepository {
     }
 
     /**
-     * Gets all Users from DB
+     * Gets all Products from DB
      *
-     * @return list of Users
+     * @return list of Products
      */
     public List<Products> all() {
         Session session = getSession();

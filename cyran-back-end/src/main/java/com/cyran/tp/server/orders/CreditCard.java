@@ -17,9 +17,9 @@ import javax.persistence.GenerationType;
 import com.cyran.tp.server.users.Users;
 
 /**
- * Class for mapping user to DB table using Hibernate
+ * Class for mapping credit card to DB table using Hibernate
  *
- * @author Jakub Perdek, Peter Spusta
+ * @author Jakub Perdek
  */
 @Entity
 @Table(name = "cards")
@@ -44,18 +44,18 @@ public class CreditCard {
     private Users user;
 
     /**
-     * Gets id of mapped user
+     * Gets id of creadit card
      *
-     * @return id of mapped user
+     * @return id of creadit card
      */
     public Integer getId() {
         return id;
     }
 
     /**
-     * Sets id of mapped user
+     * Sets id of creadit card
      *
-     * @param id of mapped user
+     * @param id of creadit card
      */
     public void setId(Integer id) {
         this.id = id;
@@ -107,16 +107,16 @@ public class CreditCard {
     }
 
     /**
-     * Sets validation code of credit card
+     * Sets CVC code of credit card
      *
-     * @param validation code of credit card
+     * @param CVC code of credit card
      */
     public void setCVC(String cvc) {
         this.cvc = cvc;
     }
 
     /**
-     * Gets role for mapped user - role in eshop (priviledge)
+     * Gets user who is owner of given card
      *
      * @return user owner of credit card
      */
@@ -125,7 +125,7 @@ public class CreditCard {
     }
 
     /**
-     * Sets user for credit card
+     * Sets user who is owner of given card
      *
      * @param user owner of credit card
      */

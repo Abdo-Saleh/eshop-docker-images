@@ -17,10 +17,10 @@ import org.springframework.transaction.annotation.Transactional;
 public interface ProductsRepository extends JpaRepository<Products, Integer>, JpaSpecificationExecutor<Products> {
 
     /**
-     *  Selects first 6 products
+     *  Selects first n products
      *
-     * @param nameU - name which identifies product
-     * @return array of products obtained according name
+     * @param count - number n which limits number of obtained products
+     * @return array of products obtained according name - max count products
      */
     @Query(value = ("SELECT * FROM products LIMIT ?1"), nativeQuery = true)
     Products[] getFirstProducts(Integer count);
@@ -29,7 +29,7 @@ public interface ProductsRepository extends JpaRepository<Products, Integer>, Jp
 	/**
      *  Get product according  name
      *
-     * @param nameU - name which identifies product
+     * @param name - name which identifies product
      * @return array of products obtained according name
      */
     @Query(value = ("SELECT * FROM products WHERE name = ?1 LIMIT 1"), nativeQuery = true)

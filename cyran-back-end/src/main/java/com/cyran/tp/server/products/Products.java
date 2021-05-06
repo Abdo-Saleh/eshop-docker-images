@@ -16,9 +16,9 @@ import javax.persistence.GenerationType;
 
 
 /**
- * Class for mapping user to DB table using Hibernate
+ * Class for mapping products to DB table using Hibernate
  *
- * @author Jakub Perdek, Peter Spusta
+ * @author Jakub Perdek
  */
 @Entity
 @Table(name = "products")
@@ -42,9 +42,6 @@ public class Products {
 	@Column(name = "price", nullable = false)
     private Double price;
 
-    //@ManyToOne(targetEntity = Priviledges.class)
-	//@JoinColumn(name="priviledges_id")
-    //private Priviledges role;
 
     /**
      * Gets id of product
@@ -101,9 +98,9 @@ public class Products {
     }
 
     /**
-     * Gets description of product
+     * Gets url of product
      *
-     * @return description of product
+     * @return url of product
      */
     public String getUrl() {
         return url;
@@ -135,5 +132,4 @@ public class Products {
     public void setPrice(Double price) {
         this.price = price;
     }
-
 }

@@ -10,7 +10,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * Order repository for making query to Order table
+ * Credit cards repository for making query to cards table
  *
  * @author Jakub Perdek
  */
@@ -39,9 +39,8 @@ public interface CardsRepository extends JpaRepository<CreditCard, Integer>, Jpa
     void insertCreditCard(String iban, String valid, String cvc);
 	
     /**
-     * Gets all orders
-     * @return all orders from database
+     * Gets all credit cards
+     * @return all credit cards from database
      */
     List<CreditCard> findAll();
-
 }

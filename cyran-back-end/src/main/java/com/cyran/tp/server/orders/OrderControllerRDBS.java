@@ -46,7 +46,7 @@ import com.cyran.tp.server.products.Products;
 import com.cyran.tp.server.products.ProductsRepository;
 
 /**
- * Managing user and storing information about him
+ * Managing order creation and other manipulation with order
  *
  * @author Jakub Perdek
  */
@@ -70,14 +70,14 @@ public class OrderControllerRDBS {
     private BoughtProductsRepository boughtProductsRepository;
 	
 	/**
-     * Method for inserting product
+     * Method for creating order
      *
-     * @param request - request for registration
+     * @param request - request for creation order
      * @param body - body of post request with all order information
      * @param response - response which should be send back
-     * @return string that confirms of product insertion, otherwise denial of it
-     * @throws InterruptedException
-     * @throws ParseException
+     * @return JSON with all products or only information that order is created
+     * @throws InterruptedException for interruptions
+     * @throws ParseException if parsing request JSON body went wrong
      */
 	@RequestMapping(path = "/eorder/insert", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
@@ -174,6 +174,5 @@ public class OrderControllerRDBS {
 		}
 		
         return result;
-		//return "Order is successfully created";
     }
 }

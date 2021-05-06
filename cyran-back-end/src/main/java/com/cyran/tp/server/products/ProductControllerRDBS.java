@@ -38,7 +38,7 @@ import javax.mail.Session;
 
 
 /**
- * Managing user and storing information about him
+ * Managing products and storing information about them
  *
  * @author Jakub Perdek
  */
@@ -50,19 +50,14 @@ public class ProductControllerRDBS {
     private ProductsRepository productsRepository;
 	
 	
-
 	/**
-     * Method for registering user
+     * Method for obtaining first n products from DB to be displayed in main page
      *
-     * @param request - request for registration
-     * @param body - body of post request with email, name and hashed form of password
+     * @param request - request for obtaining firs n products
+     * @param count - number of products which should be obtained from DB
      * @param response - response which should be send back
-     * @return string that confirms of user registration, otherwise denial of it
-     * @throws NotFoundException
-     * @throws IllegalArgumentException
-     * @throws IllegalAccessException
-     * @throws ParseException
-     * @throws HibernateException
+     * @return obtained n products from DB
+     * @throws InterruptedException if something interrupts it
      */
 	@RequestMapping(path = "/firstProducts", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
@@ -76,17 +71,14 @@ public class ProductControllerRDBS {
     }
 
 	/**
-     * Method for registering user
+     * Method for product creation
      *
-     * @param request - request for registration
-     * @param body - body of post request with email, name and hashed form of password
+     * @param request - request for product creation
+     * @param body - body of post request with all information about product
      * @param response - response which should be send back
-     * @return string that confirms of user registration, otherwise denial of it
-     * @throws NotFoundException
-     * @throws IllegalArgumentException
-     * @throws IllegalAccessException
-     * @throws ParseException
-     * @throws HibernateException
+     * @return string that confirms of product creation, otherwise denial of it or some error message
+     * @throws InterruptedException if something interrupts it
+     * @throws ParseException if parsing of body JSON went wrong
      */
 	@RequestMapping(path = "/product/insert", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
@@ -119,15 +111,12 @@ public class ProductControllerRDBS {
 	/**
      * Method for updating product
      *
-     * @param request - request for registration
-     * @param body - body of post request with email, name and hashed form of password
+     * @param request - request for updating product
+     * @param body - body of post request with all information for updating product - name identifies product and cant be changed
      * @param response - response which should be send back
-     * @return string that confirms of user registration, otherwise denial of it
-     * @throws NotFoundException
-     * @throws IllegalArgumentException
-     * @throws IllegalAccessException
-     * @throws ParseException
-     * @throws HibernateException
+     * @return string that confirms of product update, otherwise error information
+     * @throws InterruptedException if something interrupts it
+     * @throws ParseException if parsing of body JSON went wrong
      */
 	@RequestMapping(path = "/product/update", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
@@ -159,6 +148,4 @@ public class ProductControllerRDBS {
 	   
        return "product successfully updated";
     }
-	
-	
 }
