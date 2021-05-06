@@ -201,7 +201,7 @@ export class PayingMethodsComponent implements OnInit {
   public saveOrder(cardInfo:any): void {
     var deliveryInfo = this.getDeliveryInformation();
 
-    this.order.userName = deliveryInfo.name + deliveryInfo.surname;
+    this.order.userName = localStorage.getItem("loggedIn");
     this.order.shipmentAddress = deliveryInfo.address;
     this.order.cartInfo.products =  this.getProducts();
     this.order.cartInfo.finalPrice = this.payment;

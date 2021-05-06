@@ -42,13 +42,27 @@ export class CardComponent implements OnInit {
    */
   ngOnInit(): void {
     if(false){
-      this.insertProducts();
+      //this.insertProducts(); // now backend manages it
+      this._productManagementService.getFirstSixProducts(this);
     }  else {
-      this.getFirst6ProductsLocally()
+      this.getFirst6ProductsLocally() // faster but depends on backend
     }
   }
 
   titles = []
+
+  /**
+   * #### Description
+   * Sets titles - mainly used for loading from DB
+   * 
+   * #### Version
+   * since: V1.0.0
+   * 
+   * @param titles - products which should be displayed on main page
+   */
+  setProducts(titles) {
+    this.titles = titles;
+  }
 
   /**
    * #### Description

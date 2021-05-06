@@ -25,7 +25,7 @@ public class ProductsUtils {
                 udto[i].setId(products[i].getId());
                 udto[i].setName(products[i].getName());
                 udto[i].setDescription(products[i].getDescription());
-				udto[i].setUrl(products[i].getUrl());
+				udto[i].setUrl("");
 				udto[i].setPrice(products[i].getPrice());
             }
         }
@@ -52,7 +52,7 @@ public class ProductsUtils {
                 udto[i].setId(product.getId());
                 udto[i].setName(product.getName());
                 udto[i].setDescription(product.getDescription());
-				udto[i].setUrl(product.getUrl());
+				udto[i].setUrl("");
 				udto[i].setPrice(product.getPrice());
                 i++;
             }

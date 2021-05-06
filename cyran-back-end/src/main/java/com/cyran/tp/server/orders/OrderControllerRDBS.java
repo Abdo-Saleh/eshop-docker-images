@@ -89,10 +89,11 @@ public class OrderControllerRDBS {
 		BoughtProducts boughtProduct;
 		Products originalProduct;
 		Orders savedOrder;
-		Double finalPrice;
+		Double finalPrice, price;
 		ObjectMapper mapper = new ObjectMapper();
         ObjectNode objectNode = mapper.createObjectNode();
 		JsonNode result;
+		String iban, valid, cvc;
 		ArrayList<Products> product_list = new ArrayList<Products>();
 		
 		
@@ -104,9 +105,15 @@ public class OrderControllerRDBS {
         JSONArray products = (JSONArray) cartInfo.get("products");
 		
 		JSONObject creditCard = (JSONObject) obj.get("creditCardInfo");
-		String iban = (String) creditCard.get("iban");
-		String valid = (String) creditCard.get("valid");
-		String cvc = (String) creditCard.get("cvc");
+		
+		if(creditCard.get("iban") instanceof Long){
+			iban = ((Long)creditCard.get("iban")).toString();
+		} else {
+			iban = (String) creditCard.get("iban");
+		}	
+	
+		valid = (String) creditCard.get("valid");
+		cvc = (String) creditCard.get("cvc");
 		CreditCard creditCardInstance = cardsRepository.getCreditCard(iban);
 		Users user = usersRepository.getByName(userName);
 		if(creditCardInstance == null){
@@ -135,7 +142,14 @@ public class OrderControllerRDBS {
 				
 				boughtProduct.setProduct(originalProduct);
 				boughtProduct.setOrder(savedOrder);
-				boughtProduct.setPrice((Double) product.get("price"));
+				
+				if(product.get("price") instanceof Long){
+					price = (Double) ((Long)product.get("price")).doubleValue();
+				} else {
+					price = (Double) product.get("price");
+				}	
+				boughtProduct.setPrice(price);
+				
 				boughtProduct.setQuantity((Long) product.get("quantity"));
 				product_list.add(originalProduct);
 				boughtProductsRepository.save(boughtProduct);

@@ -19,6 +19,9 @@ import { environment } from 'src/environments/environment';
 })
 export class ProductManagementService {
 
+  productCreationUrl: string;
+  productObtainUrl: string;
+
   /**
    * #### Description
    * Get base url. Method for portability. It loads variable with backend location url from environment.
@@ -58,6 +61,12 @@ export class ProductManagementService {
    * @param quantity product quantity which is available
    */
   public insert(name:string, description:string, price:number, url:string, quantity:number): void {
+    if(environment.localDeploy){
+      this.productCreationUrl = "product/insert";
+    } else {
+      this.productCreationUrl = "create/product";
+    }
+
     var dictionary = {}
     dictionary['name'] = name;
     dictionary['description'] = description;
@@ -65,7 +74,7 @@ export class ProductManagementService {
     dictionary['URL'] = url;
     dictionary['quantity'] = quantity;
 
-    this._ourHttpClient.post(this.baseUrl + "create/product", dictionary, { responseType: 'text' as 'json' }).subscribe(
+    this._ourHttpClient.post(this.baseUrl + this.productCreationUrl, dictionary, { responseType: 'text' as 'json' }).subscribe(
       (response)=>{
         SuccessMessageComponent.openSnackBarSuccess(this._snackBar, "Product successfully created!");
         return dictionary;
@@ -85,11 +94,19 @@ export class ProductManagementService {
    * #### Version
    * since: V1.0.0
    * 
+   * @param baseComponent component which call this function with set method
    * @returns first six products objects 
    */
-  public getFirstSixProducts(): any {
-    return this._ourHttpClient.get(this.baseUrl + "products").subscribe(
+  public getFirstSixProducts(baseComponent: any): any {
+    if(environment.localDeploy){
+      this.productObtainUrl = "/firstProducts?count=6";
+    } else {
+      this.productObtainUrl = "products";
+    }
+
+    return this._ourHttpClient.get(this.baseUrl + this.productObtainUrl).subscribe(
       (response)=>{
+        baseComponent.setProducts(response)
       },
       (error)=>{
         this._loggingErrorsService.captureError(error);

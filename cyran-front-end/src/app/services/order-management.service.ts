@@ -17,6 +17,8 @@ import { SuccessMessageComponent } from '../info-snackbars/success-message/succe
 })
 export class OrderManagementService {
   
+  orderCreationUrl:string;
+
   /**
    * #### Description
    * Get base url. Method for portability. It loads variable with backend location url from environment.
@@ -54,7 +56,12 @@ export class OrderManagementService {
    * @returns  created order subscription
    */
   createOrder(order:any){
-    return this._ourHttpClient.post(this.baseUrl + "create/order", order).subscribe(
+    if(environment.localDeploy){
+      this.orderCreationUrl = "eorder/insert";
+    } else {
+      this.orderCreationUrl = "create/order";
+    }
+    return this._ourHttpClient.post(this.baseUrl + this.orderCreationUrl , order).subscribe(
       (response) => {
         if (response != null) {
           if(response['order']['payed']){

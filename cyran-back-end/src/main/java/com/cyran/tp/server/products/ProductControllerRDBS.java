@@ -98,7 +98,13 @@ public class ProductControllerRDBS {
         String name = (String) obj.get("name");
         String description = (String) obj.get("description");
         String url = (String) obj.get("url");
-		Double price = (Double) obj.get("price");
+		Double price;
+		
+		if(obj.get("price") instanceof Long){
+			price = (Double) ((Long)obj.get("price")).doubleValue();
+		} else {
+			price = (Double) obj.get("price");
+		}
 		
         Products newProduct = new Products();
         newProduct.setName(name);
@@ -133,8 +139,13 @@ public class ProductControllerRDBS {
 		String name = (String) obj.get("name");
 		String description = (String) obj.get("description");
 		String url = (String) obj.get("url");
-		Double price = (Double) obj.get("price");
+		Double price;
 		
+		if(obj.get("price") instanceof Long){
+			price = (Double) ((Long)obj.get("price")).doubleValue();
+		} else {
+			price = (Double) obj.get("price");
+		}
 		Products product = productsRepository.getProductAccordingName(name);
 		
 		if(description != null && description != ""){
