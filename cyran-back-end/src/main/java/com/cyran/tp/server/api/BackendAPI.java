@@ -87,6 +87,12 @@ public class BackendAPI {
         return "{\"success\":0,\"message\":\"no such user or user already exists\"}";
     }
 
+    /**
+	 * Adding new page to firebase via process of page addition
+	 *
+	 * @param accessingPage - accesed page
+	 * @return void
+	 */
     public void savePage(final Page accessingPage) throws ExecutionException, InterruptedException {
         Firestore dbFirestore = FirestoreClient.getFirestore();
         DocumentReference doc = dbFirestore.collection(PAGES).document(accessingPage.getToken());
@@ -102,6 +108,12 @@ public class BackendAPI {
         }
     }
 
+    /**
+	 * Getting token for accessing page
+	 *
+	 * @param accessingPage - page for witch token is wanted
+	 * @return patient - token for page
+	 */
     public String getTokenForPage(final Page accessingPage) throws ExecutionException, InterruptedException {
         Firestore dbFirestore = FirestoreClient.getFirestore();
         DocumentReference documentReference = dbFirestore.collection(PAGES).document(accessingPage.getToken());
@@ -125,11 +137,24 @@ public class BackendAPI {
         }
     }
 
+    /**
+	 * Getting random integer in range min to max
+	 *
+	 * @param min - minimal value for integer
+	 * @param max - maximal value for integer
+	 * @return x - returns random integer in range of min to max
+	 */
     public static double getRandomIntegerBetweenRange(double min, double max) {
         double x = (int) (Math.random() * ((max - min) + 1)) + min;
         return x;
     }
 
+    /**
+	 * Creating order
+	 *
+	 * @param orderRequest - request for order creation
+	 * @return result - created order 
+	 */
     public JsonNode createOrder(final OrderRequest orderRequest) throws ExecutionException, InterruptedException {
         Firestore dbFirestore = FirestoreClient.getFirestore();
         DocumentReference doc = dbFirestore.collection(ORDERS)
@@ -176,6 +201,12 @@ public class BackendAPI {
         return result;
     }
 
+    /**
+	 * Getting user from database
+	 *
+	 * @param name - name of wanted user
+	 * @return patient - wanted user
+	 */
     public User getUser(String name) throws InterruptedException, ExecutionException {
         Firestore dbFirestore = FirestoreClient.getFirestore();
         DocumentReference documentReference = dbFirestore.collection(USERS).document(name);
@@ -195,6 +226,12 @@ public class BackendAPI {
         }
     }
 
+    /**
+	 * Getting product from database
+	 *
+	 * @param byName - name of wanted product
+	 * @return patient - wanted product
+	 */
     public Product getProduct(String byName) throws InterruptedException, ExecutionException {
         Firestore dbFirestore = FirestoreClient.getFirestore();
         DocumentReference documentReference = dbFirestore.collection(PRODUCTS).document(byName);
@@ -213,7 +250,13 @@ public class BackendAPI {
             return null;
         }
     }
-
+    
+    /**
+	 * Creation of product, adding him to database
+	 *
+	 * @param createProductRequest - request with information about product to be create
+	 * @return message - message about product creation success
+	 */
     public String createProduct(ProductRequest createProductRequest) throws ExecutionException, InterruptedException {
         Firestore dbFirestore = FirestoreClient.getFirestore();
         DocumentReference doc = dbFirestore.collection(PRODUCTS).document(createProductRequest.getName());
@@ -230,6 +273,12 @@ public class BackendAPI {
         return "product not created";
     }
 
+    /**
+	 * Update of product
+	 *
+	 * @param updateProductRequest - request with information about product to be updated
+	 * @return message - message about product update success
+	 */
     public String updateProduct(ProductRequest updateProductRequest) throws ExecutionException, InterruptedException {
         Firestore dbFirestore = FirestoreClient.getFirestore();
         DocumentReference doc = dbFirestore.collection(PRODUCTS).document(updateProductRequest.getName());
